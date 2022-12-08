@@ -10,11 +10,8 @@ from game_rater.configs.config import DATASET_DIR, TRAINED_MODEL_DIR, config
 
 
 def load_dataset(*, file_name: str) -> pd.DataFrame:
-    df = pd.read_csv(f"{DATASET_DIR}/{file_name}")
-
-    # rename variables beginning with numbers to avoid syntax errors later
-    transformed_df = df.rename(columns=config.model_config.variables_to_rename)
-    return transformed_df
+    df = pd.read_parquet(f"{DATASET_DIR}/{file_name}")
+    return df
 
 
 def save_pipeline(*, pipeline_to_persist: Pipeline) -> None:

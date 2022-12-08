@@ -10,7 +10,7 @@ test_data_file: test.parquet
 pipeline_name: rate_regressor
 pipeline_save_file: rate_regressor_model
 
-target: average
+target: stats.average
 
 var_pre_rename:
   attributes.boardgamecategory: category
@@ -78,7 +78,6 @@ num_vars:
   - minplaytime
   - playingtime
   - yearpublished
-  - average
   - averageweight
   - numcomments
   - numweights

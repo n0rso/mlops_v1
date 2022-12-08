@@ -8,17 +8,14 @@ from game_rater.utils.data_utils import load_dataset, save_pipeline
 # this again is repeating the sample project, since the process is the same
 def run_training() -> None:
     """Train the model."""
-
     # read training data
     data = load_dataset(file_name=config.app_config.training_data_file)
 
-    # divide train and test
+    # train / test split
     X_train, X_test, y_train, y_test = train_test_split(
-        data[config.model_config.features],  # predictors
+        data.drop(config.model_config.target, axis=1),
         data[config.model_config.target],
         test_size=config.model_config.test_size,
-        # we are setting the random seed here
-        # for reproducibility
         random_state=config.model_config.random_state,
     )
 
