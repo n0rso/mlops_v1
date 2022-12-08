@@ -1,0 +1,104 @@
+package_name: game_rater
+
+# Data Files
+training_data_file: board_data.parquet
+test_data_file: test.parquet
+
+# this variable is to calculate the temporal variable
+# but is dropped prior to model training.
+
+pipeline_name: rate_regressor
+pipeline_save_file: rate_regressor_model
+
+target: average
+
+var_pre_rename:
+  attributes.boardgamecategory: category
+  attributes.boardgamemechanic: mechanic
+  attributes.boardgamepublisher: publisher
+
+var_groups_post_rename:
+  - details
+  - stats
+
+vars_to_drop:
+  - row_names
+  - game.id
+  - details.description
+  - details.image
+  - details.name
+  - details.thumbnail
+  - stats.bayesaverage
+  - stats.median
+  - game.type
+
+var_groups_to_drop:
+  - stats.family
+  - stats.polls
+  - stats.subtype
+  - polls
+  - attributes
+
+vars_to_extract:
+  - mechanic
+  - publisher
+  - category
+
+features:
+  - maxplayers
+  - maxplaytime
+  - minage
+  - minplayers
+  - minplaytime
+  - playingtime
+  - yearpublished
+  - category
+  - mechanic
+  - publisher
+  - averageweight
+  - numcomments
+  - numweights
+  - owned
+  - stddev
+  - trading
+  - usersrated
+  - wanting
+  - wishing
+
+cat_vars:
+  - category
+  - publisher
+  - mechanic
+
+num_vars:
+  - maxplayers
+  - maxplaytime
+  - minage
+  - minplayers
+  - minplaytime
+  - playingtime
+  - yearpublished
+  - average
+  - averageweight
+  - numcomments
+  - numweights
+  - owned
+  - stddev
+  - trading
+  - usersrated
+  - wanting
+  - wishing
+
+xgboost_params:
+  colsample_bytree: 0.753
+  gamma: 5.223
+  max_depth: 4
+  min_child_weight: 7
+  reg_alpha: 40
+  reg_lambda: 0.96
+
+test_size: 0.1
+
+random_state: 42
+
+drop_tol: 0.98
