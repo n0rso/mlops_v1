@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  title: Board Games Rates API.
+  description: This is as an api spec for a model predictin board game ratings.
+  version: "1.0.0"
+
+servers:
+  - url: http://{base}:8000/
+    description: Board game rating API.
+    variables:
+      base:
+        default: 0.0.0.0
+
+paths: # defines the section of the configuration containing all of the API REST endpoints.
+  /: # defines one path of your URL endpoint.
+    get: # defines the HTTP method this URL endpoint will respond to
+      operationId: api.controller.health # defines Python import path/function that will respond to HTTP GET / request
+      responses: # defines the beginning of the expected response section.
+        "200": # defines the section for a successful response, HTTP status code 200
+          description: API Health Status # defines what the UI interface will display for implementation notes.
+
+  /preds:
+    post:
+      operationId: api.controller.predict
+      requestBody:
+        description: Board game attributes and details.
+        required: true
+        content:
+          application/json:
+            schema: # defines the response as a schema, or structure.
+              type: array # defines the structure of the schema as an array.
+              items:
+                $ref: "#/components/schemas/GameAttributes"
+      responses:
+        "200":
+          description: Board game rating prediction.
+        "400":
+          description: Bad request, data validation failed.
+        "5XX":
+          description: Unexpected error.
+
+components:
+  schemas:
+    GameAttributes:
+      type: object
+      description: "List of the houses to get predictions for."
+      example: #add later

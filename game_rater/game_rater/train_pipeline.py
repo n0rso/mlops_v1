@@ -1,28 +1,29 @@
+import logging
+
 from sklearn.model_selection import train_test_split
 
+from game_rater import __version__ as _version
 from game_rater import pipeline
 from game_rater.configs.config import config
 from game_rater.utils.data_utils import load_dataset, save_pipeline
 
-
+_logger = logging.getLogger(__name__)
+# this again is repeating the sample project, since the process is the same
 def run_training() -> None:
     """Train the model."""
-
     # read training data
     data = load_dataset(file_name=config.app_config.training_data_file)
-    print(config.model_config.target)
-    # divide train and test
+
+    # train / test split
     X_train, X_test, y_train, y_test = train_test_split(
-        data[config.model_config.features],  # predictors
+        data.drop(config.model_config.target, axis=1),
         data[config.model_config.target],
         test_size=config.model_config.test_size,
-        # we are setting the random seed here
-        # for reproducibility
         random_state=config.model_config.random_state,
     )
 
     pipeline.pipe.fit(X_train, y_train)
-
+    _logger.warning(f"saving model version: {_version}")
     save_pipeline(pipeline_to_persist=pipeline.pipe)
 
 

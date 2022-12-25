@@ -2,10 +2,10 @@ import logging
 from typing import Dict, Union
 
 import pandas as pd
-
-from game_rater import __version__ as _version
 from game_rater.configs.config import config
 from game_rater.utils.data_utils import load_pipeline
+
+from game_rater import __version__ as _version
 
 _logger = logging.getLogger(__name__)
 
@@ -20,5 +20,7 @@ def make_prediction(
     """Make a prediction using a saved model pipeline."""
 
     data = pd.DataFrame(input_data)
-    results = {"predictions": None, "version": _version}
+    preds = pipe.predict(X=data[config.model_config.features])
+    _logger.info(f"Making predictions with model version: {_version} " f"Predictions: {preds}")
+    results = {"predictions": preds, "version": _version}
     return results
