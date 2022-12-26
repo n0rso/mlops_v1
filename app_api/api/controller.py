@@ -31,8 +31,8 @@ MODEL_VERSIONS = Info(
 
 MODEL_VERSIONS.info(
     {
-        "live_model": ModelType.GB.name,
-        "live_version": "0.1.0",
+        "model": ModelType.GB.name,
+        "version": "0.1.0",
     }
 )
 
