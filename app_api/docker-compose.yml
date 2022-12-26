@@ -2,15 +2,15 @@ version: '3.8'
 services:
   app_api:
     build:
-      context: ../
-      dockerfile: docker/Dockerfile
-    container_name: ml_api
+      context: ./
+      dockerfile: Dockerfile
+    container_name: ml
     environment:
       DB_HOST: db
       DB_PORT: 5432
       DB_USER: vardan
       DB_PASSWORD: ${DB_PASSWORD:-varev05}
-      DB_NAME: ml_api_dev
+      DB_NAME: app_api_dev
     depends_on:
       - db
       # - cadvisor
