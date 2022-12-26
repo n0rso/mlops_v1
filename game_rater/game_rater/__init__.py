@@ -1,4 +1,8 @@
 import logging
+import sys
+from pathlib import Path
+
+sys.path.append(Path(__file__).parent)
 
 from game_rater.configs.config import PACKAGE_ROOT, config
 

@@ -1,9 +1,12 @@
 import logging
+import sys
+from pathlib import Path
 
 import api.persistence.models as sql_models
 import connexion
 from api.config import Config
 
+sys.path.append(Path(__file__).parent)
 # from api.monitoring.middleware import setup_metrics
 from api.persistence.core import init_database
 from sqlalchemy.orm import scoped_session
