@@ -13,7 +13,7 @@ psycopg2>=2.8.4,<2.9.0  # DB Driver
 sqlalchemy_utils>=0.36.0,<0.37.0  # DB Utils
 
 # # Monitoring
-# prometheus_client>=0.7.1,<0.8.0
+prometheus_client>=0.7.1,<0.8.0
 
 # # Deployment
 gunicorn>=20.0.4,<20.1.0

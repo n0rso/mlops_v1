@@ -1,4 +1,5 @@
 import sys
+import prometheus_client
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent))
@@ -17,7 +18,7 @@ main_app = create_app(config_object=_config).app
 # Add prometheus wsgi middleware to route /metrics requests
 # this middleware allows us to distinguish between our Flask wsgi app and prometheus wsgi app
 # read more here: https://flask.palletsprojects.com/en/2.2.x/patterns/appdispatch/
-application = DispatcherMiddleware(app=main_app.wsgi_app)  # , mounts={"/metrics": prometheus_client.make_wsgi_app()})
+application = DispatcherMiddleware(app=main_app.wsgi_app), mounts={"/metrics": prometheus_client.make_wsgi_app()})
 
 
 if __name__ == "__main__":
