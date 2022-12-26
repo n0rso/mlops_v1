@@ -5,8 +5,36 @@ import typing as t
 from api.config import APP_NAME
 from api.persistence.data_access import ModelType, PredictionPersistence
 from flask import Response, current_app, jsonify, request
+from prometheus_client import Gauge, Histogram, Info
 
 _logger = logging.getLogger(__name__)
+
+
+PREDICTION_TRACKER = Histogram(
+    name="board_game_rating",
+    documentation="ML Model for Board Game Rating Prediction",
+    labelnames=["app_name", "model_name", "model_version"],
+)
+
+PREDICTION_GAUGE = Gauge(
+    name="board_game_gauge_rating",
+    documentation="ML Model for Board Game Rating Prediction",
+    labelnames=["app_name", "model_name", "model_version"],
+)
+
+PREDICTION_GAUGE.labels(app_name=APP_NAME, model_name=ModelType.LASSO.name, model_version="0.1.0")
+
+MODEL_VERSIONS = Info(
+    "model_version_details",
+    "Capture model version information",
+)
+
+MODEL_VERSIONS.info(
+    {
+        "live_model": ModelType.GB.name,
+        "live_version": "0.1.0",
+    }
+)
 
 
 def health():
@@ -27,15 +55,15 @@ def predict():
             _logger.warning(f"errors during prediction: {result.errors}")
             return Response(json.dumps(result.errors), status=400)
 
-        # # Step 4: Monitoring
-        # for _prediction in result.predictions:
-        #     PREDICTION_TRACKER.labels(
-        #         app_name=APP_NAME, model_name=ModelType.LASSO.name, model_version=live_version
-        #     ).observe(_prediction)
+        # Step 4: Monitoring
+        for _prediction in result.predictions:
+            PREDICTION_TRACKER.labels(app_name=APP_NAME, model_name=ModelType.GB.name, model_version="0.1.0").observe(
+                _prediction
+            )
 
-        #     PREDICTION_GAUGE.labels(app_name=APP_NAME, model_name=ModelType.LASSO.name, model_version=live_version).set(
-        #         _prediction
-        #     )
+            PREDICTION_GAUGE.labels(app_name=APP_NAME, model_name=ModelType.GB.name, model_version="0.1.0").set(
+                _prediction
+            )
 
         # Step 5: Prepare prediction response
         return jsonify(
