@@ -2,10 +2,10 @@ import logging
 from typing import Dict, Union
 
 import pandas as pd
-from game_rater.configs.config import config
-from game_rater.utils.data_utils import load_pipeline
 
 from game_rater import __version__ as _version
+from game_rater.configs.config import config
+from game_rater.utils.data_utils import load_pipeline
 
 _logger = logging.getLogger(__name__)
 

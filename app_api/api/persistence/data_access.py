@@ -9,7 +9,7 @@ sys.path.append(Path(__file__).parent.parent.parent)
 from api.persistence.models import ModelPredictions
 from sqlalchemy.orm.session import Session
 
-from game_rater.predict import make_prediction as make_prediction
+from game_rater.game_rater.predict import make_prediction as make_prediction
 
 _logger = logging.getLogger(__name__)
 

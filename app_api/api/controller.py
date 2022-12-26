@@ -6,9 +6,6 @@ from api.config import APP_NAME
 from api.persistence.data_access import ModelType, PredictionPersistence
 from flask import Response, current_app, jsonify, request
 
-from game_rater import __version__ as _version
-from game_rater.predict import make_prediction
-
 _logger = logging.getLogger(__name__)
 
 
