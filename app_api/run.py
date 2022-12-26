@@ -1,3 +1,8 @@
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent.parent))
+sys.path.append(str(Path(__file__).parent))
 from api.app import create_app
 from api.config import DevelopmentConfig, setup_app_logging
 from werkzeug.middleware.dispatcher import DispatcherMiddleware

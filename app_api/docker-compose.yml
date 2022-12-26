@@ -13,7 +13,7 @@ services:
       DB_NAME: ml_api_dev
     depends_on:
       - db
-      - cadvisor
+      # - cadvisor
     expose:
       - 5000
     ports:
