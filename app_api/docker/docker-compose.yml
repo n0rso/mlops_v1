@@ -2,8 +2,8 @@ version: '3.8'
 services:
   app_api:
     build:
-      context: ./
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: docker/Dockerfile
     container_name: ml
     environment:
       DB_HOST: db

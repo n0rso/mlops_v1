@@ -1,8 +1,11 @@
 import json
 import logging
+import sys
 import typing as t
 from enum import Enum
+from pathlib import Path
 
+sys.path.append(Path(__file__).parent.parent.parent)
 from api.persistence.models import ModelPredictions
 from sqlalchemy.orm.session import Session
 
