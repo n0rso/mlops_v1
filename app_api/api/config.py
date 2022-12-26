@@ -34,8 +34,10 @@ class Config:
     DB_HOST = os.getenv("DB_HOST", "0.0.0.0")
     DB_NAME = os.getenv("DB_NAME", "ml_api_dev")
 
-    SQLALCHEMY_DATABASE_URI = f"""postgresql+psycopg2://{DB_USER}:
-        {DB_PASSWORD}@{DB_HOST}/{DB_NAME}"""  # more on the UR
+    SQLALCHEMY_DATABASE_URI = (
+        f"postgresql+psycopg2://{os.getenv('DB_USER')}:"  # dialect = postgresql, driver = psycopg2
+        f"{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
+    )  # more on the UR
 
 
 class DevelopmentConfig(Config):

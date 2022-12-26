@@ -21,8 +21,6 @@ def create_db_engine_from_config(*, config: Config) -> Engine:
     a specific kind of database / DBAPI combination.
     """
     db_uri = config.SQLALCHEMY_DATABASE_URI
-    print(db_uri)
-    print("blalal", database_exists(db_uri))
     if not database_exists(db_uri):
         create_database(db_uri)
     engine = create_engine(db_uri)
@@ -59,9 +57,3 @@ def init_database(app: Flask, config: Config, db_session=None, base=None) -> Non
     @app.teardown_appcontext
     def shutdown_session(exception=None):
         db_session.remove()
-
-
-if __name__ == "__main__":
-    config = Config()
-    engine = create_db_engine_from_config(config=config)
-    # db_session = create_db_session(engine=engine)
