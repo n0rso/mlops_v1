@@ -21,7 +21,7 @@ def create_app(*, config_object: Config, db_session: scoped_session = None) -> c
     flask_app.config.from_object(config_object)
 
     # Setup database
-    init_database(flask_app, config=config_object, db_session=db_session, base=sql_models.Base)
+    # init_database(flask_app, config=config_object, db_session=db_session, base=sql_models.Base)
 
     # Setup prometheus monitoring
     # setup_metrics(flask_app)

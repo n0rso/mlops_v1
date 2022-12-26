@@ -32,6 +32,12 @@ services:
     volumes:
       - my_db_data:/var/lib/postgresql/data
 
+
+volumes:
+  my_db_data:
+  # prometheus_data:
+  # grafana_data:
+
   # cadvisor: # see https://prometheus.io/docs/guides/cadvisor/
   #   image: gcr.io/cadvisor/cadvisor:v0.46.0
   #   container_name: cadvisor
@@ -76,8 +82,3 @@ services:
   #     - GF_USERS_ALLOW_SIGN_UP=false
   #   ports:
   #     - "3000:3000"
-
-volumes:
-  my_db_data:
-  # prometheus_data:
-  # grafana_data:
